@@ -146,19 +146,6 @@
     font-weight: 700;
     color: var(--ink-soft);
     margin: 0 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .sub-section-title .badge {
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    padding: 3px 8px;
-    border-radius: 6px;
-    text-transform: uppercase;
   }
 
   .actions {
@@ -178,7 +165,6 @@
   .btn:active { transform: translateY(1px); }
   .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
   .btn.primary:hover { background: #0284c7; }
-  .btn.ghost { background: transparent; }
   .btn svg { width: 16px; height: 16px; }
 
   .toast-host {
@@ -197,18 +183,57 @@
   }
 
   @media print {
-    body { background: #fff; padding: 0; }
+    @page { size: A4 landscape; margin: 10mm; }
+    body { background: #fff; padding: 0; font-size: 10pt; }
     .no-print { display: none !important; }
+    .layout { max-width: 100%; }
+    .page-title { margin: 0 0 14px; }
+    .page-title h1 { font-size: 16pt; }
+    .page-title .subtitle { font-size: 9pt; }
+    .page-title .eyebrow { font-size: 8pt; padding: 3px 10px; }
+    .page-title .verified { font-size: 8pt; padding: 3px 10px; }
     .card {
-      box-shadow: none; border: 1px solid #ccc;
-      page-break-inside: avoid; margin-bottom: 12px;
+      box-shadow: none;
+      border: 1px solid #b8c2cc;
+      page-break-inside: avoid;
+      margin-bottom: 8px;
     }
-    .card-header { background: #f4f4f4; cursor: default; }
+    .card:hover { box-shadow: none; }
+    .card-header { background: #f4f4f4; cursor: default; padding: 8px 14px; }
+    .card-header h2 { font-size: 11pt; }
+    .card-header h2::before { height: 14px; }
+    .card-header .chevron { display: none; }
     .card.collapsed .card-body { display: block !important; }
-    .table-wrap { border: 1px solid #ccc; overflow: visible; }
-    table.data-table { min-width: 0; font-size: 11px; }
-    .data-table thead th { background: #eee; font-size: 10px; }
+    .card-body { padding: 10px 14px 12px; }
+    .info-grid { gap: 8px 20px; }
+    .info-row { padding: 6px 0; }
+    .info-row .key { font-size: 8pt; }
+    .info-row .value { font-size: 9.5pt; }
+    .table-title { font-size: 9pt; margin: 0 0 6px; }
+    .table-wrap { border: 1px solid #b8c2cc; overflow: visible; border-radius: 6px; }
+    table.data-table {
+      min-width: 0 !important;
+      width: 100% !important;
+      table-layout: fixed;
+      font-size: 8pt;
+    }
+    .data-table thead th {
+      background: #eee;
+      font-size: 7.5pt;
+      padding: 5px 4px;
+      white-space: normal !important;
+      word-break: break-word;
+    }
+    .data-table tbody td {
+      padding: 5px 4px;
+      font-size: 8pt;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
     .data-table tbody tr:hover { background: transparent; }
+    .data-table tbody tr:nth-child(even) { background: #fbfbfb; }
+    .sub-section + .sub-section { margin-top: 12px; padding-top: 10px; }
+    .sub-section-title { font-size: 10pt; margin-bottom: 6px; }
     .page-title .verified { color: #000; background: none; padding: 0; }
     a[href]::after { content: ""; }
   }
@@ -218,7 +243,6 @@
 
 <div class="layout">
 
-  <!-- ===== Page Title ===== -->
   <header class="page-title">
     <span class="eyebrow">Certificate Verification</span>
     <h1>I.R. of IRAN — Certificate of Origin</h1>
@@ -229,7 +253,6 @@
     </div>
   </header>
 
-  <!-- ===== General (QR updated) ===== -->
   <section class="card" data-collapsible>
     <div class="card-header" role="button" tabindex="0" aria-expanded="true">
       <h2>General</h2>
@@ -248,7 +271,6 @@
     </div>
   </section>
 
-  <!-- ===== Exporter ===== -->
   <section class="card" data-collapsible>
     <div class="card-header" role="button" tabindex="0" aria-expanded="true">
       <h2>Exporter</h2>
@@ -266,7 +288,6 @@
     </div>
   </section>
 
-  <!-- ===== Consignee ===== -->
   <section class="card" data-collapsible>
     <div class="card-header" role="button" tabindex="0" aria-expanded="true">
       <h2>Consignee</h2>
@@ -283,7 +304,6 @@
     </div>
   </section>
 
-  <!-- ===== Transportation — TWO sub-sections (Land + Sea) ===== -->
   <section class="card" data-collapsible>
     <div class="card-header" role="button" tabindex="0" aria-expanded="true">
       <h2>Transportation</h2>
@@ -296,11 +316,8 @@
         <div class="info-row"><span class="key">Transport Description</span><span class="value">IRAN – TURKEY by TRUCK / TURKEY – CHINA by sea</span></div>
       </div>
 
-      <!-- Land segment (Iran → Turkey) -->
       <div class="sub-section">
-        <div class="sub-section-title">
-          Land Segment <span class="badge">Iran → Turkey</span>
-        </div>
+        <div class="sub-section-title">Land Segment</div>
         <div class="table-title">Transportation Table — Road / Ground</div>
         <div class="table-wrap">
           <table class="data-table">
@@ -318,21 +335,18 @@
               <tr>
                 <td class="num">1</td>
                 <td class="empty-cell">—</td>
-                <td>On Ground</td>
+                <td>Truck</td>
                 <td>96AU547/96AU548</td>
                 <td class="empty-cell">—</td>
-                <td>IRAN → TURKEY by truck</td>
+                <td>Iran → Turkey by Truck</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Sea segment (Turkey → China) -->
       <div class="sub-section">
-        <div class="sub-section-title">
-          Sea Segment <span class="badge">Turkey → China</span>
-        </div>
+        <div class="sub-section-title">Sea Segment</div>
         <div class="table-title">Transportation Table — Sea Freight</div>
         <div class="table-wrap">
           <table class="data-table">
@@ -355,7 +369,7 @@
                 <td>TURKEY</td>
                 <td>CHINA</td>
                 <td class="empty-cell">—</td>
-                <td>TURKEY → CHINA by sea</td>
+                <td>Turkey → China by Sea</td>
               </tr>
             </tbody>
           </table>
@@ -365,7 +379,6 @@
     </div>
   </section>
 
-  <!-- ===== Goods ===== -->
   <section class="card" data-collapsible>
     <div class="card-header" role="button" tabindex="0" aria-expanded="true">
       <h2>Goods</h2>
@@ -414,7 +427,6 @@
     </div>
   </section>
 
-  <!-- ===== For official use ===== -->
   <section class="card" data-collapsible>
     <div class="card-header" role="button" tabindex="0" aria-expanded="true">
       <h2>For Official Use</h2>
@@ -427,7 +439,6 @@
     </div>
   </section>
 
-  <!-- ===== Actions (Draft button removed) ===== -->
   <div class="actions no-print">
     <button class="btn primary" id="btnPrint">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -447,12 +458,8 @@
 (function () {
   "use strict";
 
-  /* ============================================================
-     STATIC VALUES
-     Ref + QR fixed. Input #11 uses the same 29-prefix ref as #10.
-     ============================================================ */
   var STATIC_REF_NUMBER = "2912345678901";
-  var STATIC_QR_HASH    = "f7a3e9b2c4d6e8f0a1b3c5d7e9f1a2b4"; // new 32-char hex for #11 demo
+  var STATIC_QR_HASH    = "f7a3e9b2c4d6e8f0a1b3c5d7e9f1a2b4";
 
   document.getElementById("refNumber").textContent = STATIC_REF_NUMBER;
   document.getElementById("refSubtitle").textContent = "Ref: " + STATIC_REF_NUMBER;
